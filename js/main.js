@@ -1,62 +1,102 @@
-//intialize function called when the script loads
-function intialize(){
-	cities();
+//initialize function called when the script loads
+function initialize(){
+    cities();
 };
 
 //function to create a table with cities and their populations
 function cities(){
-	//define two arrays for cities and population
-	var cities = [
-		'Madison',
-		'Milwaukee',
-		'Green Bay',
-		'Superior'
-	];
-	var population = [
-		233209,
-		594833,
-		104057,
-		27244
-	];
+    //define two arrays for cities and population
+    var cityPop = [
+        { 
+            city: 'Madison',
+            population: 233209
+        },
+        {
+            city: 'Milwaukee',
+            population: 594833
+        },
+        {
+            city: 'Green Bay',
+            population: 104057
+        },
+        {
+            city: 'Superior',
+            population: 27244
+        }
+    ];
 
-	//create the table element
-	var table = document.createElement("table");
+    //append the table element to the div
+    $("#mydiv").append("<table>");
 
-	//create a header row
-	var headerRow = document.createElement("tr");
+    //append a header row to the table
+    $("table").append("<tr>");
 
-	//add the "City" column
-	var cityHeader = document.createElement("th");
-	cityHeader.innerHTML = "City";
-	headerRow.appendChild(cityHeader);
+    //add the "City" and "Population" columns to the header row
+    $("tr").append("<th>City</th><th>Population</th>");
 
-	//add the "Population" column
-	var popHeader = document.createElement("th");
-	popHeader.innerHTML = "Population";
-	headerRow.appendChild(popHeader);
+    //loop to add a new row for each city
+    for (var i = 0; i < cityPop.length; i++){
+        //assign longer html strings to a variable
+        var rowHtml = "<tr><td>" + cityPop[i].city + "</td><td>" + cityPop[i].population + "</td></tr>";
+        //add the row's html string to the table
+        $("table").append(rowHtml);
+    };
+//Added at Example 3.5 line 44...
+    //get the div id
+    var theid = $('#mydiv').attr('id');
 
-	//add the row to the table
-	table.appendChild(headerRow);
+    //theid is 'mydiv'; add it as text to the div
+    $('#mydiv').append(theid);
 
-	//loop to add a new row for each city
-	for (var i = 0; i <cities.length; i++){
-		var tr = document.createElement("tr");
+    //add the class 'foo' to the div
+    $('#mydiv').attr('class', 'foo');
 
-		var city = document.createElement("td");
-		city.innerHTML = cities[i];
-		tr.appendChild(city);
+    //Check your work with the Inspector!
+     //change the text color
+    $('#mydiv').css('color', 'red');
 
-		var pop = document.createElement("td");
-		pop.innerHTML = population[i];
-		tr.appendChild(pop);
+    //change the text size and alignment
+    $('#mydiv').css({
+        'font-size': '2em',
+        'text-align': 'left'
+    });
 
-		table.appendChild(tr);
-	};
+    //get the text color and add it as text to the div
+    var thecolor = $('#mydiv').css('color');
+    $('#mydiv').append(thecolor);
 
-	//add the table to the div in index.html
-	var mydiv = document.getElementById("mydiv");
-	mydiv.appendChild(table);
+    //fooled ya! thecolor is rgb(255, 0, 0), the CSS interpreter's translation of the keyword 'red'
+    
+    //Added below Example 3.7...
+    //iterate over each script element and add each one's source url as text to the div
+    $('script').each(function(){
+        var thesource = $(this).attr('src');
+        $('#mydiv').append(thesource);
+    });
+
+   //Added below Example 3.8...
+    //click listener with anonymous handler function
+    $('table').on('click', function(){
+        alert('Madison Rocks! Go Badgers!');
+    });
+
+    //alias method for the click event listener
+    $('table').click(function(){
+        alert('Visit Superior and see the big lake!');
+    });
+
+    //named handler function for removable listener
+    function clickme(){
+        alert('Yeah Green Bay! Go Packers!');
+    };
+
+    //add the event listener
+    $('table').on('click', clickme);
+
+    //remove the event listener
+    $('table').off('click', clickme); 
+
 };
 
-//call the intialize function when the window has loaded 
-window.onload = intialize();
+//call the initialize function when the document has loaded
+$(document).ready(initialize);
