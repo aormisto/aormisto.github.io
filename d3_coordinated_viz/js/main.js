@@ -3,8 +3,8 @@ window.onload = setMap();
 function setMap(){
 
     //map frame dimensions
-    var width = 1100,
-        height = 500;
+    var width = 1600,
+        height = 800;
 
     //create new svg container for the map
     var map = d3.select("body")
@@ -32,17 +32,37 @@ function setMap(){
         .await(callback);
 	
 	function callback(error, csvData, world, climate){
-        //translate europe TopoJSON
+		var graticule = d3.geoGraticule()
+            .step([5, 5]); //place graticule lines every 5 degrees of longitude and latitude
+		
+		//create graticule background
+        var gratBackground = map.append("path")
+            .datum(graticule.outline()) //bind graticule background
+            .attr("class", "gratBackground") //assign class for styling
+            .attr("d", path) //project graticule
+
+        //create graticule lines
+        var gratLines = map.selectAll(".gratLines") //select graticule elements that will be created
+            .data(graticule.lines()) //bind graticule lines to each element to be created
+            .enter() //create an element for each datum
+            .append("path") //append each element to the svg as a path element
+            .attr("class", "gratLines") //assign class for styling
+            .attr("d", path); //project graticule lines
+		
+		
+		
+		
+        //translate world and climate countries to TopoJSON
         var worldCountries = topojson.feature(world, world.objects.WorldCountries),
             climateRegions = topojson.feature(climate, climate.objects.countries).features;
 
-               //add Europe countries to map
+               //add world countries to map
         var countries = map.append("path")
             .datum(worldCountries)
             .attr("class", "countries")
             .attr("d", path);
 
-        //add France regions to map
+        //add countries with climate change data to map
         var regions = map.selectAll(".regions")
             .data(climateRegions)
             .enter()
