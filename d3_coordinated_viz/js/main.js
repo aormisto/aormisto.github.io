@@ -157,7 +157,9 @@ function setEnumerationUnits(climateRegions, map, path, colorScale){
         })
 		.on("mouseout", function(d){
             dehighlight(d.properties);
-        });
+        })
+		.on("mousemove", moveLabel);
+
 
 	
 	//add style descriptor to each path
@@ -243,7 +245,9 @@ function setChart(csvData, colorScale){
         })
         .attr("width", chartInnerWidth / csvData.length - 1)
    		.on("mouseover", highlight)
-		.on("mouseout", dehighlight);
+		.on("mouseout", dehighlight)
+        .on("mousemove", moveLabel);
+
 	
 	 //add style descriptor to each rect
 	var desc = bars.append("desc")
@@ -383,12 +387,13 @@ function dehighlight(props){
         var styleObject = JSON.parse(styleText);
 
         return styleObject[styleName];
-    };
-};
-	
+    }
 	//remove info label
     d3.select(".infolabel")
         .remove();
+	
+};
+	
 	
 	//function to create dynamic label
 function setLabel(props){
@@ -405,7 +410,18 @@ function setLabel(props){
 
     var regionName = infolabel.append("div")
         .attr("class", "labelname")
-        .html(props.name);
+        .html(props.ADMIN);
 };
+	
+//function to move info label with mouse
+function moveLabel(){
+    //use coordinates of mousemove event to set label coordinates
+    var x = d3.event.clientX + 10,
+        y = d3.event.clientY - 75;
+
+    d3.select(".infolabel")
+        .style("left", x + "px")
+        .style("top", y + "px");
+};	
 	
 })(); //last line of main.js    
