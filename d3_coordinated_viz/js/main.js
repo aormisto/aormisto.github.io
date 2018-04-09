@@ -361,6 +361,8 @@ function highlight(props){
     var selected = d3.selectAll("." + props.ADMIN)
         .style("stroke", "blue")
         .style("stroke-width", "2");
+	
+	setLabel(props)
 };	
 	
 	//function to reset the element style on mouseout
@@ -382,6 +384,28 @@ function dehighlight(props){
 
         return styleObject[styleName];
     };
+};
+	
+	//remove info label
+    d3.select(".infolabel")
+        .remove();
+	
+	//function to create dynamic label
+function setLabel(props){
+    //label content
+    var labelAttribute = "<h1>" + props[expressed] +
+        "</h1><b>" + expressed + "</b>";
+
+    //create info label div
+    var infolabel = d3.select("body")
+        .append("div")
+        .attr("class", "infolabel")
+        .attr("id", props.ADMIN + "_label")
+        .html(labelAttribute);
+
+    var regionName = infolabel.append("div")
+        .attr("class", "labelname")
+        .html(props.name);
 };
 	
 })(); //last line of main.js    
