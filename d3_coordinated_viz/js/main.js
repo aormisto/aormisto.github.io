@@ -154,7 +154,15 @@ function setEnumerationUnits(climateRegions, map, path, colorScale){
         })
 		.on("mouseover", function(d){
             highlight(d.properties);
+        })
+		.on("mouseout", function(d){
+            dehighlight(d.properties);
         });
+
+	
+	//add style descriptor to each path
+		var desc = regions.append("desc")
+			.text('{"stroke": "#000", "stroke-width": "0.5px"}');
 };
 
     //function to create color scale generator
@@ -234,7 +242,12 @@ function setChart(csvData, colorScale){
             return "bar " + d.ADMIN;
         })
         .attr("width", chartInnerWidth / csvData.length - 1)
-   		.on("mouseover", highlight);
+   		.on("mouseover", highlight)
+		.on("mouseout", dehighlight);
+	
+	 //add style descriptor to each rect
+	var desc = bars.append("desc")
+        .text('{"stroke": "none", "stroke-width": "0px"}');
 	
 	//create a text element for the chart title
     var chartTitle = chart.append("text")
@@ -350,5 +363,25 @@ function highlight(props){
         .style("stroke-width", "2");
 };	
 	
+	//function to reset the element style on mouseout
+function dehighlight(props){
+    var selected = d3.selectAll("." + props.ADMIN)
+        .style("stroke", function(){
+            return getStyle(this, "stroke")
+        })
+        .style("stroke-width", function(){
+            return getStyle(this, "stroke-width")
+        });
+
+    function getStyle(element, styleName){
+        var styleText = d3.select(element)
+            .select("desc")
+            .text();
+
+        var styleObject = JSON.parse(styleText);
+
+        return styleObject[styleName];
+    };
+};
 	
 })(); //last line of main.js    
