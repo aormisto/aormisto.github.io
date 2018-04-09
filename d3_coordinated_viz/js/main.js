@@ -151,6 +151,9 @@ function setEnumerationUnits(climateRegions, map, path, colorScale){
         .attr("d", path)
        .style("fill", function(d){
             return choropleth(d.properties, colorScale);
+        })
+		.on("mouseover", function(d){
+            highlight(d.properties);
         });
 };
 
@@ -230,7 +233,8 @@ function setChart(csvData, colorScale){
         .attr("class", function(d){
             return "bar " + d.ADMIN;
         })
-        .attr("width", chartInnerWidth / csvData.length - 1);
+        .attr("width", chartInnerWidth / csvData.length - 1)
+   		.on("mouseover", highlight);
 	
 	//create a text element for the chart title
     var chartTitle = chart.append("text")
@@ -337,6 +341,14 @@ function updateChart(bars, n, colorScale){
     var chartTitle = d3.select(".chartTitle")
         .text("Number of Variable " + expressed[3] + " in each region");
 };
+	
+ //function to highlight enumeration units and bars
+function highlight(props){
+    //change stroke
+    var selected = d3.selectAll("." + props.ADMIN)
+        .style("stroke", "blue")
+        .style("stroke-width", "2");
+};	
 	
 	
 })(); //last line of main.js    
