@@ -5,6 +5,21 @@
 var attrArray = ["varA", "varB", "varC", "varD", "varE", "varF", "varG", "varH", "varI", "varJ", "varK", "varL", "varM", "varN"]; //list of attributes
 var expressed = attrArray[0]; //initial attribute
 
+//chart frame dimensions
+var chartWidth = window.innerWidth * 0.425,
+    chartHeight = 473,
+    leftPadding = 25,
+    rightPadding = 2,
+    topBottomPadding = 5,
+    chartInnerWidth = chartWidth - leftPadding - rightPadding,
+    chartInnerHeight = chartHeight - topBottomPadding * 2,
+    translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
+
+//create a scale to size bars proportionally to frame and for axis
+var yScale = d3.scaleLinear()
+    .range([463, 0])
+    .domain([0, 110]);		
+	
 //begin script when window loads    
 window.onload = setMap();
 
@@ -188,16 +203,7 @@ function choropleth(props, colorScale){
 	
 	//function to create coordinated bar chart
 function setChart(csvData, colorScale){
-    //chart frame dimensions
-    var chartWidth = window.innerWidth * 0.425,
-        chartHeight = 473,
-        leftPadding = 25,
-        rightPadding = 2,
-        topBottomPadding = 5,
-        chartInnerWidth = chartWidth - leftPadding - rightPadding,
-        chartInnerHeight = chartHeight - topBottomPadding * 2,
-        translate = "translate(" + leftPadding + "," + topBottomPadding + ")";
-
+    
     //create a second svg element to hold the bar chart
       var chart = d3.select("body")
         .append("svg")
@@ -211,12 +217,6 @@ function setChart(csvData, colorScale){
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
-	
-
-	//create a scale to size bars proportionally to frame
-   var yScale = d3.scaleLinear()
-        .range([463, 0])
-        .domain([0, 100]);
 
 	
     //set bars for each province
@@ -230,19 +230,7 @@ function setChart(csvData, colorScale){
         .attr("class", function(d){
             return "bar " + d.ADMIN;
         })
-        .attr("width", chartInnerWidth / csvData.length - 1)
-        .attr("x", function(d, i){
-            return i * (chartInnerWidth / csvData.length) + leftPadding;
-        })
-        .attr("height", function(d, i){
-            return 463 - yScale(parseFloat(d[expressed]));
-        })
-        .attr("y", function(d, i){
-            return yScale(parseFloat(d[expressed])) + topBottomPadding;
-        })
-        .style("fill", function(d){
-            return choropleth(d, colorScale);
-        });
+        .attr("width", chartInnerWidth / csvData.length - 1);
 	
 	//create a text element for the chart title
     var chartTitle = chart.append("text")
@@ -267,7 +255,10 @@ function setChart(csvData, colorScale){
         .attr("width", chartInnerWidth)
         .attr("height", chartInnerHeight)
         .attr("transform", translate);
-};
+	
+	//set bar positions, heights, and colors
+    updateChart(bars, csvData.length, colorScale);
+}; //end of setChart()
 
 //function to create a dropdown menu for attribute selection
 function createDropdown(csvData){
@@ -307,8 +298,38 @@ function changeAttribute(attribute, csvData){
         .style("fill", function(d){
             return choropleth(d.properties, colorScale)
         });
+
+    //re-sort, resize, and recolor bars
+   var bars = d3.selectAll(".bar")
+        //re-sort bars
+        .sort(function(a, b){
+            return b[expressed] - a[expressed];
+        });
 	
+  updateChart(bars, csvData.length, colorScale);
+}; //end of changeAttribute()
 	
+//function to position, size, and color bars in chart
+function updateChart(bars, n, colorScale){
+    //position bars
+    bars.attr("x", function(d, i){
+            return i * (chartInnerWidth / n) + leftPadding;
+        })
+        //size/resize bars
+        .attr("height", function(d, i){
+            return 463 - yScale(parseFloat(d[expressed]));
+        })
+        .attr("y", function(d, i){
+            return yScale(parseFloat(d[expressed])) + topBottomPadding;
+        })
+        //color/recolor bars
+        .style("fill", function(d){
+            return choropleth(d, colorScale);
+        });	
+	//add text to chart title
+    var chartTitle = d3.select(".chartTitle")
+        .text("Number of Variable " + expressed[3] + " in each region");
 };
+	
 	
 })(); //last line of main.js    
