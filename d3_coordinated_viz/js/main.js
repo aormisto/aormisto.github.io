@@ -49,7 +49,7 @@ function setMap(){
     //use queue to parallelize asynchronous data loading
     d3.queue()
         .defer(d3.csv, "data/data.csv") //load attributes from csv
-        .defer(d3.json, "data/WorldCountries.topojson") //load background spatial data
+        .defer(d3.json, "data/World_Countries1.topojson") //load background spatial data
         .defer(d3.json, "data/countries.topojson") //load choropleth spatial data
         .await(callback);
     
@@ -60,7 +60,7 @@ function setMap(){
         setGraticule(map, path);
         
         //translate world and climate countries to TopoJSON
-        var worldCountries = topojson.feature(world, world.objects.WorldCountries),
+        var worldCountries = topojson.feature(world, world.objects.World_Countries1),
             climateRegions = topojson.feature(climate, climate.objects.countries).features;
         
          //add world countries to map
@@ -170,11 +170,11 @@ function setEnumerationUnits(climateRegions, map, path, colorScale){
     //function to create color scale generator
 function makeColorScale(data){
     var colorClasses = [
-        "#D4B9DA",
-        "#C994C7",
-        "#DF65B0",
-        "#DD1C77",
-        "#980043"
+        "#fef0d9",
+        "#fdcc8a",
+        "#fc8d59",
+        "#e34a33",
+        "#b30000"
     ];
 
     //create color scale generator
@@ -333,6 +333,7 @@ function changeAttribute(attribute, csvData){
             return i * 20
         })
         .duration(500);
+	
 	
   updateChart(bars, csvData.length, colorScale);
 }; //end of changeAttribute()

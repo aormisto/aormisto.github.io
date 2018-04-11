@@ -1,6 +1,6 @@
 
 .countries {
-    fill: none;
+    fill: rgb(219, 209, 225);
     stroke: #CCC;
     stroke-width: 2px;
 }
@@ -18,7 +18,7 @@
 }
 
 .gratBackground {
-    fill: #D5E3FF;
+    fill: rgb(105, 127, 164);
 }
 
 .map {
