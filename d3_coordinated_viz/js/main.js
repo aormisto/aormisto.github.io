@@ -39,8 +39,8 @@ function setMap(){
 
     //create Mollweide equal area projection 
     var projection = d3.geoMollweide()
-        .center([0, 0])
-        .scale(180);
+        .center([0, -6])
+        .scale(160);
  
     
     var path = d3.geoPath()
