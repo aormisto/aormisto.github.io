@@ -1,8 +1,8 @@
 
 .countries {
-    fill: rgb(219, 209, 225);
-    stroke: #CCC;
-    stroke-width: 2px;
+    fill: rgb(242, 242, 242);
+    stroke: rgb(128, 128, 128);
+    stroke-width: 0.5px;
 }
 
 .regions {
@@ -18,7 +18,7 @@
 }
 
 .gratBackground {
-    fill: rgb(105, 127, 164);
+    fill: #92b1b9;
 }
 
 .map {
@@ -32,7 +32,7 @@
 }
 
 .chartTitle {
-    font-family: sans-serif;
+    font-family: ‘Merriweather’, Georgia, serif;
     font-size: 1.5em;
     font-weight: bold;
 }
@@ -57,17 +57,17 @@
 }
 
 .axis text {
-    font-family: sans-serif;
+    font-family: "Open Sans";
     font-size: 0.8em;
     fill: #999;
 }
 
 .dropdown {
     position: absolute;
-    top: 30px;
+    top: 120px;
     left: 40px;
     z-index: 10;
-    font-family: sans-serif;
+    font-family: ‘Merriweather’, Georgia, serif;;
     font-size: 1em;
     font-weight: bold;
     padding: 2px;
@@ -78,6 +78,7 @@
 option {
     font-weight: normal;
 }
+
 
 .infolabel {
     position: absolute;
@@ -96,3 +97,5 @@ option {
     display: inline-block;
     line-height: 1em;
 }
+
+h1 { font-family: ‘Merriweather’, Georgia, serif; }

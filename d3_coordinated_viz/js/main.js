@@ -40,7 +40,7 @@ function setMap(){
     //create Mollweide equal area projection 
     var projection = d3.geoMollweide()
         .center([0, 0])
-        .scale(150);
+        .scale(180);
  
     
     var path = d3.geoPath()
@@ -364,7 +364,7 @@ function updateChart(bars, n, colorScale){
 function highlight(props){
     //change stroke
     var selected = d3.selectAll("." + props.ADMIN)
-        .style("stroke", "blue")
+        .style("stroke", "#ffff1a")
         .style("stroke-width", "2");
 	
 	setLabel(props)
