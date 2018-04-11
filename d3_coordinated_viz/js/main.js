@@ -2,7 +2,7 @@
 (function(){
 
 //pseudo-global variables
-var attrArray = ["varA", "varB", "varC", "varD", "varE", "varF", "varG", "varH", "varI", "varJ", "varK", "varL", "varM", "varN"]; //list of attributes
+var attrArray = ["Total CO2 Emissions Excluding Land-Use Change and Forestry (MtCO2)", "Total GHG Emissions Excluding Land-Use Change and Forestry (MtCO2e)", "Total GHG Emissions Including Land-Use Change and Forestry (MtCO2e)", "Population (people)", "Total GHG Emissions Excluding Land-Use Change & Forestry Per Capita (tCO2e Per Capita)", "Total GHG Emissions Including Land-Use Change & Forestry Per Capita (tCO2e Per Capita)", "GDP-PPP (Million Intl$ (2011))", "GDP-USD (Million US$ (2010))", "Energy (MtCO2e)", "Industrial Processes (MtCO2e)", "Agriculture (MtCO2e)", "Waste (MtCO2e)", "Land-Use Change and Forestry (MtCO2)", "Bunker Fuels (MtCO2)"]; //list of attributes
 var expressed = attrArray[0]; //initial attribute
 
 //chart frame dimensions
@@ -357,7 +357,7 @@ function updateChart(bars, n, colorScale){
         });	
 	//add text to chart title
     var chartTitle = d3.select(".chartTitle")
-        .text("Number of Variable " + expressed[3] + " in each region");
+        .text(expressed + " in each region");
 };
 	
  //function to highlight enumeration units and bars

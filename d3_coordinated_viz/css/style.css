@@ -33,7 +33,7 @@
 
 .chartTitle {
     font-family: ‘Merriweather’, Georgia, serif;
-    font-size: 1.5em;
+    font-size: 0.85em;
     font-weight: bold;
 }
 
@@ -64,10 +64,10 @@
 
 .dropdown {
     position: absolute;
-    top: 120px;
+    top: 600px;
     left: 40px;
     z-index: 10;
-    font-family: ‘Merriweather’, Georgia, serif;;
+    font-family: ‘Merriweather’, Georgia, serif;
     font-size: 1em;
     font-weight: bold;
     padding: 2px;
@@ -78,7 +78,6 @@
 option {
     font-weight: normal;
 }
-
 
 .infolabel {
     position: absolute;
