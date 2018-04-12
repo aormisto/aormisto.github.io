@@ -8,7 +8,7 @@ var expressed = attrArray[0]; //initial attribute
 //chart frame dimensions
 var chartWidth = window.innerWidth * 0.425,
     chartHeight = 473,
-    leftPadding = 25,
+    leftPadding = 50,
     rightPadding = 2,
     topBottomPadding = 5,
     chartInnerWidth = chartWidth - leftPadding - rightPadding,
@@ -18,7 +18,7 @@ var chartWidth = window.innerWidth * 0.425,
 //create a scale to size bars proportionally to frame and for axis
 var yScale = d3.scaleLinear()
     .range([463, 0])
-    .domain([0, 110]);		
+    .domain([0, 11500]);		
 	
 //begin script when window loads    
 window.onload = setMap();
@@ -334,7 +334,28 @@ function changeAttribute(attribute, csvData){
         })
         .duration(500);
 	
+	// Create an array that containing all values of the expressed attribute
+	var changeArray = [];
+	for (var i=0; i<csvData.length; i++) {
+		var val = parseFloat(csvData[i][expressed]);
+		changeArray.push(val);
+	};
 	
+	//Find the max value of the array (using d3.min(array) method)
+	var maxValue = d3.max(changeArray);
+	
+	//Use that value to set a new y scale (like what you did in your global yScalePop block)
+	
+	yScale = d3.scaleLinear()
+		.range([chartHeight, 0])
+		.domain([0, maxValue]);
+	
+	var yAxis = d3.axisLeft()
+		.scale(yScale);
+	
+	d3.selectAll("g.axis")
+		.call(yAxis);
+	 
   updateChart(bars, csvData.length, colorScale);
 }; //end of changeAttribute()
 	
