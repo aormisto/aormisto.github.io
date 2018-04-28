@@ -5,7 +5,7 @@ function createMap(){
    // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 
 var map = new L.Map('map');
-		var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+		var osmUrl='https://api.mapbox.com/styles/v1/aormisto/cjdzbihla1gtr2tq7c8e6kx1x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW9ybWlzdG8iLCJhIjoiY2pkemFkcW1wNWY3aDJ4cDBybnp0OHI4cCJ9.5KX05b-V3tmUBACjkVyMMg';
 		var osmAttrib='Map data &copy; OpenStreetMap contributors';
 		var osm = new L.TileLayer(osmUrl, {minZoom: 3, maxZoom: 15, attribution: osmAttrib});
 		map.addLayer(osm);
