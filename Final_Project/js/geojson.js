@@ -20,27 +20,9 @@ var map = new L.Map('map');
     getData(map);
 }
 
-//added at Example 2.3 line 20...function to attach popups to each mapped feature
-function onEachFeature(feature, layer) {
-    //no property named popupContent; instead, create html string with all properties
-    var popupContent = "";
-    if (feature.properties) {
-        //loop to add feature property names and values to html string
-        for (var property in feature.properties){
-            popupContent += "<p>" + property + ": " + feature.properties[property] + "</p>";
-        }
-        layer.bindPopup(popupContent);
-    };
-};
-
-
-
-function getData(map){
-	//load data
-	$.ajax("data/natmon.geojson", {
-		dataType: "json",
-		success: function(response){
-			//create marker options
+//add markers
+function createSymbols (data, map){
+	//create marker options
 			var geojsonMarkerOptions ={
 				radius: 8,
 				fillColor: "#FF5733",
@@ -49,19 +31,30 @@ function getData(map){
 				opacity: 1,
 				fillOpacity: 0.8
 			};
-			
-			//create a Leaflet GeoJSON feature and add it to map
-			L.geoJSON(response, {
-				pointToLayer: function (feature, latlng){
-					return L.circleMarker(latlng, geojsonMarkerOptions);
-				}
-			}).addTo(map);
-			
-			L.geoJSON(response, {
-				onEachFeature: onEachFeature
-			}).addTo(map);
+	
+
+//create a Leaflet GeoJSON layer and add it to the map
+	L.geoJSON(data, {
+		pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, geojsonMarkerOptions);
 		}
+	}).addTo(map);
+};
+
+
+
+
+
+function getData(map){
+	//load data
+	$.ajax("data/natmon.geojson", {
+		dataType: "json",
+		success: function(response){
+			//call functions to create symbols
+			createSymbols(response, map);
+		}
+		
 	});
-}
+};
 
 $(document).ready(createMap);
