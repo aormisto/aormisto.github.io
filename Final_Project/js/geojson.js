@@ -60,6 +60,25 @@ function pointToLayer(feature, latlng){
 	return layer;
 };
 
+//create new sequence controls
+function createSequenceControls(map){
+	//create range input element (slider)
+	$('#panel').append('<input class="range-slider" type="range">');
+	//set slider attributes
+	$('.range-slider').attr({
+		max: 6,
+		min: 0,
+		value: 0,
+		step: 1
+	});
+	
+	$('#panel').append('<button class="skip" id="reverse">Reverse</button>');
+	$('#panel').append('<button class="skip" id="forward">Skip</button>');
+	$('#reverse').html('<img src="img/back.png">');
+	$('#forward').html('<img src="img/forward.png">');
+	
+};
+
 
 //add markers
 function createSymbols (data, map){
@@ -77,6 +96,7 @@ function getData(map){
 		success: function(response){
 			//call functions to create symbols
 			createSymbols(response, map);
+			createSequenceControls(map);
 		}
 		
 	});
