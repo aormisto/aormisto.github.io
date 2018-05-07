@@ -21,10 +21,13 @@ var map = new L.Map('map');
 }
 
 //convert markers to circle markers
-function pointToLayer(feature, latlng){
+function pointToLayer(feature, latlng, attributes){
 	
 	//determine which attribute will be visualized
-	var attribute = "area";
+	var attribute = attributes[0];
+	
+	//check
+	console.log(attribute);
 	
 	//creat marker options
 	var options = {
@@ -66,7 +69,7 @@ function createSequenceControls(map){
 	$('#panel').append('<input class="range-slider" type="range">');
 	//set slider attributes
 	$('.range-slider').attr({
-		max: 6,
+		max: 52,
 		min: 0,
 		value: 0,
 		step: 1
@@ -77,26 +80,98 @@ function createSequenceControls(map){
 	$('#reverse').html('<img src="img/back.png">');
 	$('#forward').html('<img src="img/forward.png">');
 	
+	//click listener for buttons
+	$('.skip').click(function(){
+		
+		//get the old index value
+		var index = $('.range-slider').val();
+		
+		//increment or decrement depending on button clicked
+		if($(this).attr('id') == 'forward'){
+			index++;
+			
+			//if past the last attribute, wrap around to first attribute
+			index = index > 52 ? 0 : index;
+			
+		} else if ($(this).attr('id') == 'reverse'){
+			index--;
+			//if past the first attribute, wrap around to last attribute
+			index = index < 0 ? 52 : index;
+		};
+		
+		//update slider
+		$('.range-slider').val(index);
+		updateSymbols(map, attributes[index]);
+	});
+	
+	//input listener for slider
+	$('.range-slider').on('input', function(){
+		//get the new index value
+		var index = $(this).val();
+		updateSymbols(map, attributes[index]);
+	});
+	
 };
 
 
 //add markers
-function createSymbols (data, map){
+function createSymbols (data, map, attributes){
 	//create Leaflet GeoJSON layer and add it to map
 	L.geoJSON(data, {
-		pointToLayer: pointToLayer
+		pointToLayer: function(feature, latlng){
+			return pointToLayer(feature, latlng, attributes);
+		}
 	}).addTo(map);
 };
+
+//build attribute array of data
+function processData(data){
+	//empty array to hold attributes
+	var attributes = [];
 	
+	//properties of the first feature in the dataset
+	var properties = data.features[0].properties;
+	
+	//push each attribute name into attributes array
+	for (var attribute in properties){
+		//only take attributes with population values
+		if (attribute.indexOf("year") > -1){
+			attributes.push(attribute);
+		};
+	};
+	
+	//check result
+	console.log(attributes);
+	
+	return attributes;
+};
+
+//Resize proportional symbols according to new attribute values
+function updateSymbols(map, attribute){
+     map.eachLayer(function(layer){
+      
+         if (layer.feature && layer.feature.properties[attribute]){
+            //update the layer style and popup
+           
+         };
+     });
+};
+
+
+
 		
 function getData(map){
 	//load data
 	$.ajax("data/natmon.geojson", {
 		dataType: "json",
 		success: function(response){
+			
+			//create attributes array
+			var attributes = processData(response);
+			
 			//call functions to create symbols
-			createSymbols(response, map);
-			createSequenceControls(map);
+			createSymbols(response, map, attributes);
+			createSequenceControls(map, attributes);
 		}
 		
 	});
