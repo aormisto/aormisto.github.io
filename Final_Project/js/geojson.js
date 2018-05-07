@@ -20,31 +20,44 @@ var map = new L.Map('map');
     getData(map);
 }
 
-//add markers
-function createSymbols (data, map){
-	//create marker options
-			var geojsonMarkerOptions ={
-				radius: 8,
+//convert markers to circle markers
+function pointToLayer(feature, latlng){
+	
+	//determine which attribute will be visualized
+	var attribute = "area";
+	
+	//creat marker options
+	var options = {
+		radius: 8,
 				fillColor: "#FF5733",
 				color:"#000",
 				weight: 1,
 				opacity: 1,
 				fillOpacity: 0.8
 			};
+	//create circle marker layer
+	var layer = L.circleMarker(latlng, options);
 	
-
-//create a Leaflet GeoJSON layer and add it to the map
-	L.geoJSON(data, {
-		pointToLayer: function (feature, latlng) {
-			return L.circleMarker(latlng, geojsonMarkerOptions);
-		}
-	}).addTo(map);
+	//build popup string
+	var popupContent = "<p><b>National Monument: </b> " + feature.properties.name + "</p>" +"<p><b>Year Established: </b>" + feature.properties.year + "</p> " + "<p><b>Area (acres): </b>" + feature.properties.area + "</p>";
+	
+	//bind popup to circle marker
+	layer.bindPopup(popupContent);
+	
+	//return the marker to the L.geoJson pointLater option
+	return layer;
 };
 
 
-
-
-
+//add markers
+function createSymbols (data, map){
+	//create Leaflet GeoJSON layer and add it to map
+	L.geoJSON(data, {
+		pointToLayer: pointToLayer
+	}).addTo(map);
+};
+	
+		
 function getData(map){
 	//load data
 	$.ajax("data/natmon.geojson", {
