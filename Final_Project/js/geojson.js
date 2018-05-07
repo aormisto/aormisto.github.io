@@ -42,7 +42,19 @@ function pointToLayer(feature, latlng){
 	var popupContent = "<p><b>National Monument: </b> " + feature.properties.name + "</p>" +"<p><b>Year Established: </b>" + feature.properties.year + "</p> " + "<p><b>Area (acres): </b>" + feature.properties.area + "</p>";
 	
 	//bind popup to circle marker
-	layer.bindPopup(popupContent);
+	layer.bindPopup(popupContent, {
+		offset: new L.point(0,-options.radius)
+	});
+	
+	//event listeners to open popup on hover
+	layer.on({
+		mouseover: function(){
+			this.openPopup();
+		},
+		mouseout: function(){
+			this.closePopup();
+		}
+	});
 	
 	//return the marker to the L.geoJson pointLater option
 	return layer;
