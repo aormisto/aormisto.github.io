@@ -1,4 +1,4 @@
-//Anna Ormiston: Lab 1: Leaflet Lab */
+//Anna Ormiston: Final Project */
 
 //function to instantiate the Leaflet map
 function createMap(){
@@ -20,6 +20,21 @@ var map = new L.Map('map');
     getData(map);
 }
 
+//added at Example 2.3 line 20...function to attach popups to each mapped feature
+function onEachFeature(feature, layer) {
+    //no property named popupContent; instead, create html string with all properties
+    var popupContent = "";
+    if (feature.properties) {
+        //loop to add feature property names and values to html string
+        for (var property in feature.properties){
+            popupContent += "<p>" + property + ": " + feature.properties[property] + "</p>";
+        }
+        layer.bindPopup(popupContent);
+    };
+};
+
+
+
 function getData(map){
 	//load data
 	$.ajax("data/natmon.geojson", {
@@ -40,6 +55,10 @@ function getData(map){
 				pointToLayer: function (feature, latlng){
 					return L.circleMarker(latlng, geojsonMarkerOptions);
 				}
+			}).addTo(map);
+			
+			L.geoJSON(response, {
+				onEachFeature: onEachFeature
 			}).addTo(map);
 		}
 	});
