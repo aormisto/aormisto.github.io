@@ -1,6 +1,4 @@
 //Anna Ormiston: Final Project */
-
-//function to instantiate the Leaflet map
 function createMap(){
    // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 
@@ -16,38 +14,23 @@ var map = new L.Map('map');
 		var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
 		var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 
-    //call getData function
-    getData(map);
+    
 };
 
+//Fetch some data from a GeoJSON file
+$.getJSON("data/natmon.geojson", function(json) {
 
+var testlayer = L.geoJson(json);
+var sliderControl = L.control.sliderControl({
+position: "topright",
+layer: testlayer,
+range: true
+});
 
-
-		
-function getData(map){
-	//load data
-	$.ajax("data/natmon.geojson",{
-		dataType: "json",
-		success: function(response){
-			
-			var testLayer = L.geoJson(response)
-			
-			var sliderControl = L.control.sliderControl({
-				position: "topright",
-				layer: testLayer,
-				range:3
-			});
-			
-				
-			
-			map.addControl(sliderControl);
-			sliderControl.startSlider();
-			
-			
-			
-		}
-		
-	});
-};
+//Make sure to add the slider to the map ;-)
+map.addControl(sliderControl);
+//An initialize the slider
+sliderControl.startSlider();
+});
 
 $(document).ready(createMap);
