@@ -189,7 +189,7 @@ function createSymbols (data, map){
 
 function getData(map){
 	//load data
-	$.ajax("data/bearsEarsPI.geojson",{
+	$.ajax("data/points_FocusNM.geojson",{
 		dataType: "json",
 		success: function(response){
 			createSymbols(response, map);
