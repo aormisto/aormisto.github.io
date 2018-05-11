@@ -15,7 +15,38 @@ function createMap(){
 	var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 	
 	//call getData function
+	
 	getData(map);
+};
+
+function pointToLayer(feature, latlng){
+	
+	//determine which attribute will be visualized
+	var attribute = "Name";
+	
+	//creat marker options
+	var options = {
+		radius: 3,
+				fillColor: "#FF5733",
+				color:"#FF5733",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			};
+	//create circle marker layer
+	var layer = L.circleMarker(latlng, options);
+	
+	return layer;
+	
+};
+
+
+//add markers
+function createSymbols (data, map){
+	//create Leaflet GeoJSON layer and add it to map
+	L.geoJSON(data, {
+		pointToLayer: pointToLayer
+	}).addTo(map);
 };
 
 
@@ -25,25 +56,18 @@ function createMap(){
 
 function getData(map){
 	//load data
-	$.ajax("data/nationalMonumentsTime.geojson",{
+	$.ajax("data/bearsEarsPI.geojson",{
 		dataType: "json",
 		success: function(response){
-			var testLayer = L.geoJson(response)
-			var sliderControl = L.control.sliderControl({
-			position: "topright",
-			layer: testLayer,
-			timeAttribute: "time",
-			isTime: true,
-			startTime: '1906-09-24T00:00:00',
-			endTime: '2017-01-13T00:00:00',
-			range: true	
-			});
-
-			map.addControl(sliderControl);
-			sliderControl.startSlider();
+			createSymbols(response, map);
+		
 		}
 	});
 };
+
+
+
+
 
 $(document).ready(createMap);
 
