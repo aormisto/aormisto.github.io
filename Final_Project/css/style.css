@@ -23,6 +23,15 @@ html, body, #map {
     display: inline-block;
 }
 
+
+#nationalmonument{
+	margin-left: 420px;
+	margin-bottom: 10px;
+}
+
+#about{
+	text-align: center;
+}
 /* Example 3.7 */
 #panel {
     width: 26%;

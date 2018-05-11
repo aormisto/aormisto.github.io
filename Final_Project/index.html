@@ -17,7 +17,6 @@
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="lib/leaflet/leaflet.css">
-    <link rel="stylesheet" href="Control.FullScreen.css" />
     <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.css' rel='stylesheet' />
    
     
@@ -36,9 +35,15 @@ p {color:#7C8082;}
 
   
     <!-- Map -->
-    <div id="map"></div>
-    <div class="story" data-point="37.63,-109.86">First story. Click to zoom</div>
-    <!-- Source Information -->
+	
+	
+	<div id="about"></div>
+	<div id="nationalmonument">
+		<button class="nm">Add National Monument data</button>
+	</div>
+    
+	<div id="map"></div>
+    	
 
     <div id="panel"></div>
 
@@ -52,7 +57,7 @@ p {color:#7C8082;}
     <script src="data/nationalMonumentsTime.geojson"></script>
     <script src="js/geojson.js"></script>
 	<script src="js/SliderControl.js"></script>
-	<script src="Control.FullScreen.js"></script>
+
     <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-minimap/v1.0.0/Control.MiniMap.js'></script>
 
 
