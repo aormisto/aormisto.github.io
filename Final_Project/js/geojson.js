@@ -18,7 +18,77 @@ function createMap(){
 	getMonument(map);
 	getData(map);
 	getMinData(map);
+	getOilData(map);
+	
 };
+
+
+
+
+function pointToLayerOil(feature, latlng){
+	
+	//determine which attribute will be visualized
+	var attribute = "Name";
+	
+	//creat marker options
+	var options = {
+		radius: 1,
+				fillColor: "#010800",
+				color:"#010800",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			};
+	//create circle marker layer
+	var layerOil = L.circleMarker(latlng, options);
+	
+	return layerOil;
+	
+};
+
+
+//add markers
+function createOilSymbols (data, map){
+	//create Leaflet GeoJSON layer and add it to map
+	L.geoJSON(data, {
+		pointToLayer: pointToLayerOil
+	}).addTo(map);
+};
+
+
+
+function getOilData(map){
+	//load data
+	$.ajax("data/oilGas.geojson",{
+		dataType: "json",
+		success: function(response){
+			createOilSymbols(response, map);
+		
+		}
+	});
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function pointToLayerMineral(feature, latlng){
@@ -29,8 +99,8 @@ function pointToLayerMineral(feature, latlng){
 	//creat marker options
 	var options = {
 		radius: 1,
-				fillColor: "#000",
-				color:"#000",
+				fillColor: "#3399FF",
+				color:"#3399FF",
 				weight: 1,
 				opacity: 1,
 				fillOpacity: 0.8
@@ -63,8 +133,6 @@ function getMinData(map){
 		}
 	});
 };
-
-
 
 
 
