@@ -59,7 +59,7 @@ function createOilSymbols (data, map){
 
 function getOilData(map){
 	//load data
-	$.ajax("data/oilGas.geojson",{
+	$.ajax("data/oilGas_FocusNM.geojson",{
 		dataType: "json",
 		success: function(response){
 			createOilSymbols(response, map);
@@ -125,7 +125,7 @@ function createMinSymbols (data, map){
 
 function getMinData(map){
 	//load data
-	$.ajax("data/mineral.geojson",{
+	$.ajax("data/min_FocusNM.geojson",{
 		dataType: "json",
 		success: function(response){
 			createMinSymbols(response, map);
