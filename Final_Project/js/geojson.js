@@ -15,9 +15,77 @@ function createMap(){
 	var miniMap = new L.Control.MiniMap(osm2, { toggleDisplay: true }).addTo(map);
 	
 	//call getData function
-	
+	getMonument(map);
 	getData(map);
+	getMinData(map);
 };
+
+
+function pointToLayerMineral(feature, latlng){
+	
+	//determine which attribute will be visualized
+	var attribute = "Name";
+	
+	//creat marker options
+	var options = {
+		radius: 1,
+				fillColor: "#000",
+				color:"#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8
+			};
+	//create circle marker layer
+	var layerMin = L.circleMarker(latlng, options);
+	
+	return layerMin;
+	
+};
+
+
+//add markers
+function createMinSymbols (data, map){
+	//create Leaflet GeoJSON layer and add it to map
+	L.geoJSON(data, {
+		pointToLayer: pointToLayerMineral
+	}).addTo(map);
+};
+
+
+
+function getMinData(map){
+	//load data
+	$.ajax("data/mineral.geojson",{
+		dataType: "json",
+		success: function(response){
+			createMinSymbols(response, map);
+		
+		}
+	});
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function pointToLayer(feature, latlng){
 	
@@ -26,7 +94,7 @@ function pointToLayer(feature, latlng){
 	
 	//creat marker options
 	var options = {
-		radius: 3,
+		radius: 1,
 				fillColor: "#FF5733",
 				color:"#FF5733",
 				weight: 1,
@@ -51,9 +119,6 @@ function createSymbols (data, map){
 
 
 
-
-
-
 function getData(map){
 	//load data
 	$.ajax("data/bearsEarsPI.geojson",{
@@ -65,7 +130,26 @@ function getData(map){
 	});
 };
 
-
+function getMonument(map){
+	//load data
+	$.ajax("data/nationalMonumentsTime.geojson",{
+	dataType: "json",
+	success: function(response){
+	var testLayer = L.geoJson(response)
+	var sliderControl = L.control.sliderControl({
+		position: "topright",
+		layer: testLayer,
+		timeAttribute: "time",
+		isTime: true,
+		startTime: '1906-09-24T00:00:00',
+		endTime: '2017-01-13T00:00:00',
+		range: true
+	});
+	map.addControl(sliderControl);
+	sliderControl.startSlider();
+	}
+	});
+};
 
 
 
