@@ -4,6 +4,7 @@ function createMap(){
 // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 	var map = new L.Map('map');
 	
+	
 	var osmUrl='https://api.mapbox.com/styles/v1/aormisto/cjdzbihla1gtr2tq7c8e6kx1x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW9ybWlzdG8iLCJhIjoiY2pkemFkcW1wNWY3aDJ4cDBybnp0OHI4cCJ9.5KX05b-V3tmUBACjkVyMMg';
 	var osmAttrib='Map data &copy; OpenStreetMap contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 3, maxZoom: 15, attribution: osmAttrib});
@@ -217,6 +218,7 @@ function getMonument(map){
 	dataType: "json",
 	success: function(response){
 	var testLayer = L.geoJson(response, {
+		
 		onEachFeature: function(feature, layer) {
 			layer.bindPopup("<p><b>National Monument: </b> " + feature.properties.name + "</p>" +"<p><b>Year Established: </b>" + feature.properties.year + "</p> " + "<p><b>Area (acres): </b>" + feature.properties.area + "</p>");
 			layer.on({
@@ -229,6 +231,9 @@ function getMonument(map){
 			});
 		}
 	});
+		testLayer.on('click', function(response) {
+			map.setView(response.latlng, 12);
+		});
 	
 	var sliderControl = L.control.sliderControl({
 		position: "topright",
