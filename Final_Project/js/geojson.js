@@ -6,7 +6,9 @@ function createMap(){
 	
 
 		
-	
+	var reducedBE = new L.GeoJSON.AJAX("data/reducedBE.geojson");    
+	var reducedGSE = new L.GeoJSON.AJAX("data/reducedGSE.geojson");   
+
 	
 	
 	
@@ -95,7 +97,9 @@ function createMap(){
 	var overlayMaps = {
 		"Mineral Extraction Sites": min,
 		"Oil and Gas Extraction Sites": oilGas,
-		"Significant Points of Interest": points
+		"Significant Points of Interest": points,
+		"Reduced Bears Ears National Monument": reducedBE,
+		"Rediced Grand Staircase Escalante National Monument": reducedGSE
 		
 	};
 	L.control.layers(null, overlayMaps).addTo(map);
