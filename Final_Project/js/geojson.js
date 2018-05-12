@@ -17,8 +17,20 @@ function createMap(){
 			fillOpacity: 0.85});
     	}
 	});
-	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson");
-	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson");
+	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson", {
+		pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {
+			radius: 10, 
+			fillOpacity: 0.85});
+    	}
+	});
+	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson", {
+		pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {
+			radius: 10, 
+			fillOpacity: 0.85});
+    	}
+	});
 	
 	
 	
@@ -56,10 +68,15 @@ function createMap(){
 
 function getMonument(map){
 	//load data
-	$.ajax("data/nationalMonumentsTime.geojson",{
+	$.ajax("data/nationalMonumentsTime.geojson", {
 	dataType: "json",
 	success: function(response){
 	var testLayer = L.geoJson(response, {
+		pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {
+			radius: 10, 
+			fillOpacity: 0.85});
+    	},
 		
 		onEachFeature: function(feature, layer) {
 			layer.bindPopup("<p><b>National Monument: </b> " + feature.properties.name + "</p>" +"<p><b>Year Established: </b>" + feature.properties.year + "</p> " + "<p><b>Area (acres): </b>" + feature.properties.area + "</p>");
