@@ -222,7 +222,7 @@ function getMonument(map){
 	success: function(response){
 	var testLayer = L.geoJson(response, {
 		onEachFeature: function(feature, layer) {
-			layer.bindPopup(feature.properties.name);
+			layer.bindPopup("<p><b>National Monument: </b> " + feature.properties.name + "</p>" +"<p><b>Year Established: </b>" + feature.properties.year + "</p> " + "<p><b>Area (acres): </b>" + feature.properties.area + "</p>");
 		}
 	});
 	
