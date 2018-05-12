@@ -72,8 +72,8 @@ function createMap(){
 		pointToLayer: function(feature, latlng) {
         	return new L.CircleMarker(latlng, {
 				radius: 3,
-				fillColor: "#2471A3",
-				color:"#2471A3",
+				fillColor: "#8904B1",
+				color:"#8904B1",
 				weight: 1,
 				opacity: 1,
 				fillOpacity: 0.5
@@ -95,12 +95,11 @@ function createMap(){
 	
 	
 	var overlayMaps = {
+		"Reduced Bears Ears National Monument": reducedBE,
+		"Reduced Grand Staircase Escalante National Monument": reducedGSE,
 		"Mineral Extraction Sites": min,
 		"Oil and Gas Extraction Sites": oilGas,
-		"Significant Points of Interest": points,
-		"Reduced Bears Ears National Monument": reducedBE,
-		"Reduced Grand Staircase Escalante National Monument": reducedGSE
-		
+		"Significant Points of Interest": points
 	};
 	L.control.layers(null, overlayMaps).addTo(map);
 	
