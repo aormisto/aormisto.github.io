@@ -53,7 +53,7 @@ function createMap(){
 			});
     	},
 		onEachFeature: function (feature, layer) {
-        layer.bindPopup("<b>Operator: </b> " + feature.properties.Operator);
+        layer.bindPopup("<b>Oil and Gas Operator: </b> " + feature.properties.Operator);
 			layer.on({
 				mouseover: function(){
 					this.openPopup();
