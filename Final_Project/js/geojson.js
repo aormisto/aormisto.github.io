@@ -233,14 +233,20 @@ function getMonument(map){
 	var sliderControl = L.control.sliderControl({
 		position: "topright",
 		layer: testLayer,
-		timeAttribute: "time",
+		timeAttribute: 'time',
 		isTime: true,
 		startTime: '1906-09-24T00:00:00',
 		endTime: '2017-01-13T00:00:00',
 		range: true
+		
 	});
+		
 	map.addControl(sliderControl);
+	
 	sliderControl.startSlider();
+		$('#slider-timestamp').html(options.markers[ui.value].feature.properties.time.substr(0, 10));
+		
+		
 	}
 	});
 };

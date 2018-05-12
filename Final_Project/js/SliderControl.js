@@ -87,8 +87,8 @@ L.Control.SliderControl = L.Control.extend({
                 if(!!_options.markers[ui.value]) {
                     // If there is no time property, this line has to be removed (or exchanged with a different property)
                     if(_options.markers[ui.value].feature !== undefined) {
-                        if(_options.markers[ui.value].feature.properties.startDate){
-                            if(_options.markers[ui.value]) $('#slider-timestamp').html(_options.markers[ui.value].feature.properties.startDate);
+                        if(_options.markers[ui.value].feature.properties.time){
+                            if(_options.markers[ui.value]) $('#slider-timestamp').html(_options.markers[ui.value].feature.properties.time);
                         }else {
                             console.error("You have to have a time property");
                         }
