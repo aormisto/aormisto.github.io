@@ -2,7 +2,7 @@
 //function to instantiate the Leaflet map
 function createMap(){
 // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
-	var map = new L.Map('map');
+	var map = new L.Map('map', {zoomControl: false});
 	
 
 		
@@ -99,7 +99,7 @@ function createMap(){
 		"Oil and Gas Extraction Sites": oilGas,
 		"Significant Points of Interest": points,
 		"Reduced Bears Ears National Monument": reducedBE,
-		"Rediced Grand Staircase Escalante National Monument": reducedGSE
+		"Reduced Grand Staircase Escalante National Monument": reducedGSE
 		
 	};
 	L.control.layers(null, overlayMaps).addTo(map);
@@ -109,6 +109,9 @@ function createMap(){
 	var osm = new L.TileLayer(osmUrl, {minZoom: 3, maxZoom: 15, attribution: osmAttrib});
 	map.addLayer(osm);
 	map.setView(new L.LatLng(40, -100),4);
+	
+	var zoomHome = L.Control.zoomHome();
+	zoomHome.addTo(map);
 	
 	//THE FIFTH OPERATOR: Plugin magic goes here! Note that you cannot use the same layer object again, as that will confuse the two map controls
 	var osm2 = new L.TileLayer(osmUrl, {minZoom: 0, maxZoom: 13, attribution: osmAttrib });
