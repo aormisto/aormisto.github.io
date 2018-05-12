@@ -13,22 +13,34 @@ function createMap(){
 	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {
-			radius: 10, 
-			fillOpacity: 0.85});
+				radius: 3,
+				fillColor: "#626567",
+				color:"#626567",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.5});
     	}
 	});
 	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {
-			radius: 10, 
-			fillOpacity: 0.85});
+				radius: 3,
+				fillColor: "#000",
+				color:"#000",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.7});
     	}
 	});
 	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {
-			radius: 10, 
-			fillOpacity: 0.85});
+				radius: 3,
+				fillColor: "#2471A3",
+				color:"#2471A3",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.5});
     	}
 	});
 	
@@ -74,8 +86,12 @@ function getMonument(map){
 	var testLayer = L.geoJson(response, {
 		pointToLayer: function(feature, latlng) {
         return new L.CircleMarker(latlng, {
-			radius: 10, 
-			fillOpacity: 0.85});
+				radius: 8,
+				fillColor: "#0E6655",
+				color:"#0E6655  ",
+				weight: 1,
+				opacity: 1,
+				fillOpacity: 0.8});
     	},
 		
 		onEachFeature: function(feature, layer) {
