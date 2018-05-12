@@ -3,10 +3,25 @@
 function createMap(){
 // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 	var map = new L.Map('map');
-	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson");
+	
+	
+	
+	
+	
+	
+	
+	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson", {
+		pointToLayer: function(feature, latlng) {
+        return new L.CircleMarker(latlng, {
+			radius: 10, 
+			fillOpacity: 0.85});
+    	}
+	});
 	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson");
 	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson");
-
+	
+	
+	
 	var overlayMaps = {
 		"Mineral Extraction Sites": min,
 		"Oil and Gas Extraction Sites": oilGas,
