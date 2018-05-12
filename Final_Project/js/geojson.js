@@ -162,7 +162,7 @@ function pointToLayer(feature, latlng){
 	
 	//creat marker options
 	var options = {
-		radius: 1,
+				radius: 1,
 				fillColor: "#FF5733",
 				color:"#FF5733",
 				weight: 1,
@@ -198,12 +198,34 @@ function getData(map){
 	});
 };
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function getMonument(map){
 	//load data
 	$.ajax("data/nationalMonumentsTime.geojson",{
 	dataType: "json",
 	success: function(response){
-	var testLayer = L.geoJson(response)
+	var testLayer = L.geoJson(response, {
+		onEachFeature: function(feature, layer) {
+			layer.bindPopup(feature.properties.time);
+		}
+	});
+	
 	var sliderControl = L.control.sliderControl({
 		position: "topright",
 		layer: testLayer,
