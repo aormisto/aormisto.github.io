@@ -21,7 +21,7 @@ function createMap(){
 	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
 			return new L.CircleMarker(latlng, {
-				radius: 3,
+				radius: 5,
 				fillColor: "#626567",
 				color:"#626567",
 				weight: 1,
@@ -46,7 +46,7 @@ function createMap(){
 	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         	return new L.CircleMarker(latlng, {
-				radius: 3,
+				radius: 5,
 				fillColor: "#000",
 				color:"#000",
 				weight: 1,
@@ -71,7 +71,7 @@ function createMap(){
 	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         	return new L.CircleMarker(latlng, {
-				radius: 3,
+				radius: 5,
 				fillColor: "#8904B1",
 				color:"#8904B1",
 				weight: 1,
