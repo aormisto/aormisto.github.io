@@ -4,6 +4,12 @@ function createMap(){
 // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 	var map = new L.Map('map');
 	
+
+		
+	
+	
+	
+	
 	
 	
 	
@@ -22,10 +28,19 @@ function createMap(){
 			});
     	},
 		onEachFeature: function (feature, layer) {
-        layer.bindPopup(feature.properties.ORE_MAT);
+        layer.bindPopup("<b>Mineral Type: </b> " + feature.properties.ORE_MAT);
+			layer.on({
+				mouseover: function(){
+					this.openPopup();
+				},
+				mouseout: function(){
+					this.closePopup();
+				}
+			});
 		}
 		
 	});
+	
 	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         	return new L.CircleMarker(latlng, {
