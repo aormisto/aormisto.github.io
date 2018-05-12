@@ -49,9 +49,23 @@ function createMap(){
 				color:"#000",
 				weight: 1,
 				opacity: 1,
-				fillOpacity: 0.7});
-    	}
+				fillOpacity: 0.7
+			});
+    	},
+		onEachFeature: function (feature, layer) {
+        layer.bindPopup("<b>Operator: </b> " + feature.properties.Operator);
+			layer.on({
+				mouseover: function(){
+					this.openPopup();
+				},
+				mouseout: function(){
+					this.closePopup();
+				}
+			});
+		}
+		
 	});
+	
 	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
         	return new L.CircleMarker(latlng, {
@@ -60,8 +74,20 @@ function createMap(){
 				color:"#2471A3",
 				weight: 1,
 				opacity: 1,
-				fillOpacity: 0.5});
-    	}
+				fillOpacity: 0.5
+			});
+    	},
+		onEachFeature: function (feature, layer) {
+        layer.bindPopup("<b>Significant Point of Interest: </b> " + feature.properties.Name);
+			layer.on({
+				mouseover: function(){
+					this.openPopup();
+				},
+				mouseout: function(){
+					this.closePopup();
+				}
+			});
+		}
 	});
 	
 	
