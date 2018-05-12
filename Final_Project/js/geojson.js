@@ -12,18 +12,23 @@ function createMap(){
 	
 	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
-        return new L.CircleMarker(latlng, {
+			return new L.CircleMarker(latlng, {
 				radius: 3,
 				fillColor: "#626567",
 				color:"#626567",
 				weight: 1,
 				opacity: 1,
-				fillOpacity: 0.5});
-    	}
+				fillOpacity: 0.5
+			});
+    	},
+		onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.ORE_MAT);
+		}
+		
 	});
 	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
-        return new L.CircleMarker(latlng, {
+        	return new L.CircleMarker(latlng, {
 				radius: 3,
 				fillColor: "#000",
 				color:"#000",
@@ -34,7 +39,7 @@ function createMap(){
 	});
 	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson", {
 		pointToLayer: function(feature, latlng) {
-        return new L.CircleMarker(latlng, {
+        	return new L.CircleMarker(latlng, {
 				radius: 3,
 				fillColor: "#2471A3",
 				color:"#2471A3",
