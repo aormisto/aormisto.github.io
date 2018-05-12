@@ -3,7 +3,17 @@
 function createMap(){
 // Library used: https://github.com/Norkart/Leaflet-MiniMap/tree/master/example
 	var map = new L.Map('map');
-	
+	var min = new L.GeoJSON.AJAX("data/min_FocusNM.geojson");
+	var oilGas = new L.GeoJSON.AJAX("data/oilGas_FocusNM.geojson");
+	var points = new L.GeoJSON.AJAX("data/points_FocusNM.geojson");
+
+	var overlayMaps = {
+		"Mineral Extraction Sites": min,
+		"Oil and Gas Extraction Sites": oilGas,
+		"Significant Points of Interest": points
+		
+	};
+	L.control.layers(null, overlayMaps).addTo(map);
 	
 	var osmUrl='https://api.mapbox.com/styles/v1/aormisto/cjdzbihla1gtr2tq7c8e6kx1x/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW9ybWlzdG8iLCJhIjoiY2pkemFkcW1wNWY3aDJ4cDBybnp0OHI4cCJ9.5KX05b-V3tmUBACjkVyMMg';
 	var osmAttrib='Map data &copy; OpenStreetMap contributors';
@@ -17,191 +27,8 @@ function createMap(){
 	
 	//call getData function
 	getMonument(map);
-	getData(map);
-	getMinData(map);
-	getOilData(map);
 	
 };
-
-
-
-
-function pointToLayerOil(feature, latlng){
-	
-	//determine which attribute will be visualized
-	var attribute = "Name";
-	
-	//creat marker options
-	var options = {
-		radius: 1,
-				fillColor: "#010800",
-				color:"#010800",
-				weight: 1,
-				opacity: 1,
-				fillOpacity: 0.8
-			};
-	//create circle marker layer
-	var layerOil = L.circleMarker(latlng, options);
-	
-	return layerOil;
-	
-};
-
-
-//add markers
-function createOilSymbols (data, map){
-	//create Leaflet GeoJSON layer and add it to map
-	L.geoJSON(data, {
-		pointToLayer: pointToLayerOil
-	}).addTo(map);
-};
-
-
-
-function getOilData(map){
-	//load data
-	$.ajax("data/oilGas_FocusNM.geojson",{
-		dataType: "json",
-		success: function(response){
-			createOilSymbols(response, map);
-		
-		}
-	});
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function pointToLayerMineral(feature, latlng){
-	
-	//determine which attribute will be visualized
-	var attribute = "Name";
-	
-	//creat marker options
-	var options = {
-		radius: 1,
-				fillColor: "#3399FF",
-				color:"#3399FF",
-				weight: 1,
-				opacity: 1,
-				fillOpacity: 0.8
-			};
-	//create circle marker layer
-	var layerMin = L.circleMarker(latlng, options);
-	
-	return layerMin;
-	
-};
-
-
-//add markers
-function createMinSymbols (data, map){
-	//create Leaflet GeoJSON layer and add it to map
-	L.geoJSON(data, {
-		pointToLayer: pointToLayerMineral
-	}).addTo(map);
-};
-
-
-
-function getMinData(map){
-	//load data
-	$.ajax("data/min_FocusNM.geojson",{
-		dataType: "json",
-		success: function(response){
-			createMinSymbols(response, map);
-		
-		}
-	});
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function pointToLayer(feature, latlng){
-	
-	//determine which attribute will be visualized
-	var attribute = "Name";
-	
-	//creat marker options
-	var options = {
-				radius: 1,
-				fillColor: "#FF5733",
-				color:"#FF5733",
-				weight: 1,
-				opacity: 1,
-				fillOpacity: 0.8
-			};
-	//create circle marker layer
-	var layer = L.circleMarker(latlng, options);
-	
-	return layer;
-	
-};
-
-
-//add markers
-function createSymbols (data, map){
-	//create Leaflet GeoJSON layer and add it to map
-	L.geoJSON(data, {
-		pointToLayer: pointToLayer
-	}).addTo(map);
-};
-
-
-
-function getData(map){
-	//load data
-	$.ajax("data/points_FocusNM.geojson",{
-		dataType: "json",
-		success: function(response){
-			createSymbols(response, map);
-		
-		}
-	});
-};
-
-
-
-
 
 
 
