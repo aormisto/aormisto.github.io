@@ -24,57 +24,16 @@ html, body, #map {
 }
 
 
-#nationalmonument{
-	margin-left: 420px;
-	margin-bottom: 10px;
-}
 
 #about{
 	text-align: center;
 }
 /* Example 3.7 */
-#panel {
-    width: 26%;
-    padding: 20px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    line-height: 42px;
-}
-
-.sequence-control-container {
-    width: 350px;
-    height: 30px;
-    background-color: rgba(255,255,255,0.8);
-    padding: 10px;
-    line-height: 45px;
-    text-align: center;
-    border: solid gray 1px;
-}
-
-.legend-control-container {
-    width: 200px;
-    height: 150px;
-    background-color: rgba(255,255,255,0.8);
-    padding: 10px;
-    line-height: 45px;
-    text-align: center;
-    border: solid gray 1px;
-    
-}
 
 
-.range-slider {
-    width: 200px;
-}
 
-#forward {
-    float: right;
-}
 
-#reverse {
-    float: left;
-}
+
 
 h1 {
 	font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
@@ -82,7 +41,7 @@ h1 {
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
-	line-height: 26.4px;
+	line-height: 50px;
 	
 }
 

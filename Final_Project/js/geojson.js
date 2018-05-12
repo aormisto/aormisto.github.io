@@ -96,7 +96,7 @@ function createMap(){
 	
 	var overlayMaps = {
 		"Reduced Bears Ears National Monument": reducedBE,
-		"Reduced Grand Staircase Escalante National Monument": reducedGSE,
+		"Reduced Grand Staircase-Escalante National Monument": reducedGSE,
 		"Mineral Extraction Sites": min,
 		"Oil and Gas Extraction Sites": oilGas,
 		"Significant Points of Interest": points
