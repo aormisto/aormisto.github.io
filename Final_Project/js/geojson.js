@@ -222,7 +222,7 @@ function getMonument(map){
 	success: function(response){
 	var testLayer = L.geoJson(response, {
 		onEachFeature: function(feature, layer) {
-			layer.bindPopup(feature.properties.time);
+			layer.bindPopup(feature.properties.name);
 		}
 	});
 	
