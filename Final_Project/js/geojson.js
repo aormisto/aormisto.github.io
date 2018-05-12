@@ -232,8 +232,9 @@ function getMonument(map){
 		}
 	});
 		testLayer.on('click', function(response) {
-			map.setView(response.latlng, 12);
+			map.setView(response.latlng, 10);
 		});
+		
 	
 	var sliderControl = L.control.sliderControl({
 		position: "topright",
