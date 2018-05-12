@@ -37,20 +37,43 @@ html, body, #map {
 
 h1 {
 	font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
-	font-size: 48px;
+	font-size: 40px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
-	line-height: 50px;
+	line-height: 40px;
 	
 }
 
+
 h2 {
+	font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+	font-size: 30px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 25px;
+	
+}
+
+
+
+h3 {
 	font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
 	font-size: 20px;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: 500;
 	line-height: 26.4px;
+	
+}
+
+h4 {
+	font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif;
+	font-size: 15px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 15px;
 	
 }
